@@ -4,7 +4,7 @@
 #  🦞 Hacker Claw — One-Line Installer (Linux / macOS / WSL)
 # ============================================================
 
-REPO_URL="https://github.com/SanzIgd/hacker-claw.git"
+REPO_URL="https://github.com/Sanzlgd/hacker-claw.git"
 INSTALL_DIR="$HOME/.hacker-claw"
 
 echo ""

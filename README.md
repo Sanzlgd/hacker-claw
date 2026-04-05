@@ -9,12 +9,12 @@
 
 ### Windows (PowerShell)
 ```powershell
-iwr -useb https://raw.githubusercontent.com/SanzIgd/hacker-claw/main/install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/Sanzlgd/hacker-claw/main/install.ps1 | iex
 ```
 
 ### Linux / macOS / WSL (Bash)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/SanzIgd/hacker-claw/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Sanzlgd/hacker-claw/main/install.sh | bash
 ```
 
 > After installation, open a **new terminal** and type `hacker-claw` to begin.
@@ -24,7 +24,7 @@ curl -fsSL https://raw.githubusercontent.com/SanzIgd/hacker-claw/main/install.sh
 ## 🛠️ Manual Installation
 
 ```bash
-git clone https://github.com/SanzIgd/hacker-claw.git ~/.hacker-claw
+git clone https://github.com/Sanzlgd/hacker-claw.git ~/.hacker-claw
 cd ~/.hacker-claw
 npm install
 npm link
@@ -74,4 +74,4 @@ hacker-claw
 
 ## 📄 License
 
-ISC © SanzIgd
+ISC © Sanzlgd

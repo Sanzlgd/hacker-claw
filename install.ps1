@@ -1,36 +1,36 @@
 # ============================================================
-#  🦞 Hacker Claw — One-Line Installer (Windows PowerShell)
+#  Hacker Claw - One-Line Installer (Windows PowerShell)
 # ============================================================
 
-$REPO_URL  = "https://github.com/SanzIgd/hacker-claw.git"
+$REPO_URL  = "https://github.com/Sanzlgd/hacker-claw.git"
 $INSTALL_DIR = "$HOME\.hacker-claw"
 
 Write-Host ""
-Write-Host "🦞 Installing Hacker Claw..." -ForegroundColor Cyan
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
+Write-Host ">>> Installing Hacker Claw..." -ForegroundColor Cyan
+Write-Host "----------------------------------------" -ForegroundColor DarkGray
 
 # --- Check Node.js ---
 if (!(Get-Command node -ErrorAction SilentlyContinue)) {
     Write-Host "[ERROR] Node.js is not installed." -ForegroundColor Red
-    Write-Host "  → Install it from: https://nodejs.org" -ForegroundColor Yellow
+    Write-Host "  -> Install it from: https://nodejs.org" -ForegroundColor Yellow
     exit 1
 }
-Write-Host "[✓] Node.js found: $(node --version)" -ForegroundColor Green
+Write-Host "[OK] Node.js found: $(node --version)" -ForegroundColor Green
 
 # --- Check npm ---
 if (!(Get-Command npm -ErrorAction SilentlyContinue)) {
     Write-Host "[ERROR] npm is not installed. Please re-install Node.js." -ForegroundColor Red
     exit 1
 }
-Write-Host "[✓] npm found: $(npm --version)" -ForegroundColor Green
+Write-Host "[OK] npm found: $(npm --version)" -ForegroundColor Green
 
 # --- Check git ---
 if (!(Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Host "[ERROR] Git is not installed." -ForegroundColor Red
-    Write-Host "  → Install it from: https://git-scm.com" -ForegroundColor Yellow
+    Write-Host "  -> Install it from: https://git-scm.com" -ForegroundColor Yellow
     exit 1
 }
-Write-Host "[✓] git found" -ForegroundColor Green
+Write-Host "[OK] git found" -ForegroundColor Green
 Write-Host ""
 
 # --- Clone or update repo ---
@@ -38,6 +38,10 @@ if (Test-Path "$INSTALL_DIR\.git") {
     Write-Host "[*] Hacker Claw already cloned. Pulling latest changes..." -ForegroundColor Cyan
     git -C $INSTALL_DIR pull
 } else {
+    if (Test-Path $INSTALL_DIR) {
+        Write-Host "[!] $INSTALL_DIR exists but is not a Git repo. Cleaning up..." -ForegroundColor Yellow
+        Remove-Item -Path $INSTALL_DIR -Recurse -Force -ErrorAction SilentlyContinue
+    }
     Write-Host "[*] Cloning repository to $INSTALL_DIR..." -ForegroundColor Cyan
     git clone $REPO_URL $INSTALL_DIR
 }
@@ -47,7 +51,7 @@ Write-Host "[*] Installing dependencies..." -ForegroundColor Cyan
 npm install --prefix $INSTALL_DIR --silent
 
 Write-Host "[*] Linking CLI globally..." -ForegroundColor Cyan
-npm link --prefix $INSTALL_DIR
+npm link $INSTALL_DIR
 
 # --- Ensure npm global bin is in PATH ---
 $npmGlobalBin = (npm bin -g 2>$null)
@@ -67,13 +71,13 @@ if ($currentPath -notlike "*$npmGlobalBin*") {
     )
     # Also update current session
     $env:PATH = "$env:PATH;$npmGlobalBin"
-    Write-Host "[✓] PATH updated. Restart your terminal to apply." -ForegroundColor Green
+    Write-Host "[OK] PATH updated. Restart your terminal to apply." -ForegroundColor Green
 } else {
-    Write-Host "[✓] npm global bin already in PATH." -ForegroundColor Green
+    Write-Host "[OK] npm global bin already in PATH." -ForegroundColor Green
 }
 
 Write-Host ""
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
-Write-Host "🦞 Hacker Claw installed! Type 'hacker-claw' to begin." -ForegroundColor Cyan
-Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
+Write-Host "----------------------------------------" -ForegroundColor DarkGray
+Write-Host "Hacker Claw installed! Type 'hacker-claw' to begin." -ForegroundColor Cyan
+Write-Host "----------------------------------------" -ForegroundColor DarkGray
 Write-Host ""
